@@ -1,32 +1,36 @@
 import { List } from 'immutable'
 
 // todo array must be sorted by absolute number
-function doGroups(todo, done = List()) {
-  //console.log(done, todo)
+// positive values must not be passed together
+// with negatives/zeroes. Make two groups and then concat.
+function group(todo, done = List()) {
 
-  switch (todo.size) {
-  case 0: return done
-  case 1: return done.push(todo.first())
-  default:
-  }
+  if (todo.isEmpty())
+    return done
+  else if (todo.size === 1)
+    return done.push(todo.first())
 
   const [a, b] = todo.take(2).toJS()
 
   if (a * b > a + b)
-    return doGroups(todo.skip(2), done.push([a, b]))
+    return group(todo.skip(2), done.push([a, b]))
   else
-    return doGroups(todo.skip(1), done.push(a))
+    return group(todo.skip(1), done.push(a))
 }
 
+const sortByAbs = (a, b) => Math.abs(b) - Math.abs(a)
 
 export default (list) => {
-  const sortByAbs = (a, b) => Math.abs(b) - Math.abs(a)
-  const negativesAndZeroes = list.filter(_ => _ <= 0)
-  const positives = list.filter(_ => _ > 0)
 
-  const grouped =
-    doGroups(positives.sort(sortByAbs))
-    .concat(doGroups(negativesAndZeroes.sort(sortByAbs)))
+  const negativesAndZeroes = group(
+    list.filter(_ => _ <= 0).sort(sortByAbs)
+  )
+
+  const positives = group(
+    list.filter(_ => _ > 0).sort(sortByAbs)
+  )
+
+  const grouped = positives.concat(negativesAndZeroes)
 
   console.log('list: ', list.toJS())
   console.log('grouped: ', grouped.toJS())
