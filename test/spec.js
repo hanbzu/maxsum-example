@@ -2,7 +2,7 @@ import { expect } from 'chai'
 import { List } from 'immutable'
 import maxSum from '../src/maxSum'
 
-describe('maxSum', () => {
+describe('function maxSum', () => {
 
   it('is valid for proposed arrays', () => {
     expect(maxSum(List.of(0, 1, 2, 3, 4, 5)))
@@ -22,5 +22,4 @@ describe('maxSum', () => {
     expect(maxSum(List.of(-1, -2, -3, -4, -5)))
       .to.equal(25)
   })
-
 })
