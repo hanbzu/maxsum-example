@@ -2,7 +2,7 @@
   "name": "maxsum-example",
   "version": "1.0.0",
   "description": "A little ES2015 example with Babel 6, Immutable-js and Mocha tests.",
-  "main": "index.js",
+  "repository": "https://github.com/hanbzu/maxsum-example.git",
   "scripts": {
     "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js  --recursive",
     "test:watch": "npm run test -- --watch"
